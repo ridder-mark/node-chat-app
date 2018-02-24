@@ -15,14 +15,14 @@ io.on('connection', (socket) => {
 
 console.log('new user connected');
 
-socket.emit('newMessage', {
-  from: 'john',
-  text: 'fak u too',
-  createdAt: 123123
-})
-
 socket.on('createMessage', (message)=> {
   console.log('create message', message);
+
+  io.emit('newMessage', {
+    from: message.from,
+    text: message.text,
+    createdAt: new Date().getTime()
+  })
 });
 
 socket.on('disconnect', () => {
